@@ -1,0 +1,76 @@
+plugins {
+	id 'java'
+}
+
+group = 'io.waterwave'
+version = '1.0'
+archivesBaseName = 'Client'
+
+sourceCompatibility = targetCompatibility = 1.8
+compileJava.options.encoding = 'UTF-8'
+
+repositories {
+	mavenCentral()
+	maven {
+		url "https://repo.spongepowered.org/maven"
+	}
+}
+
+configurations {
+	embed
+	compile.extendsFrom(embed)
+}
+
+dependencies {
+	embed 'org.projectlombok:lombok:1.18.24'
+
+	annotationProcessor 'org.projectlombok:lombok:1.18.24'
+	implementation 'com.google.code.gson:gson:2.9.0'
+	embed 'org.json:json:20220924'
+	embed 'org.java-websocket:Java-WebSocket:1.5.3'
+	embed 'com.kohlschutter.junixsocket:junixsocket-common:2.6.0'
+	embed 'com.kohlschutter.junixsocket:junixsocket-native-common:2.6.0'
+
+	implementation 'com.google.guava:guava:21.0'
+	embed 'io.netty:netty-buffer:4.1.84.Final'
+
+	embed project(':Bridge')
+
+	implementation fileTree(includes: ['*.jar'], dir: '../libs')
+}
+
+processResources {
+	inputs.files 'src/main/resources'
+	outputs.dir 'build/classes/main'
+	copy {
+		from('src/main/resources')
+		into('build/classes/main')
+	}
+}
+
+jar {
+	dependsOn configurations.compile
+	from {
+		configurations.embed.collect {
+			it.isDirectory() ? it : zipTree(it)
+		}
+	}
+	exclude 'META-INF/*.RSA', 'META-INF/*.SF', 'META-INF/*.DSA'
+}
+task sourcesJar(type: Jar, dependsOn: classes) {
+	classifier = 'sources'
+	from sourceSets.main.allSource
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+	classifier = 'javadoc'
+	from javadoc.destinationDir
+}
+
+artifacts {
+	archives sourcesJar
+}
+
+task wrapper(type : Wrapper) {
+	gradleVersion = '4.8.1'
+}
