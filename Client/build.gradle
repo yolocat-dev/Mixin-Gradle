@@ -34,7 +34,7 @@ dependencies {
 	implementation 'com.google.guava:guava:21.0'
 	embed 'io.netty:netty-buffer:4.1.84.Final'
 
-	embed project(':Bridge')
+	implementation project(':Bridge')
 
 	implementation fileTree(includes: ['*.jar'], dir: '../libs')
 }
