@@ -1,0 +1,24 @@
+plugins {
+	id 'java'
+}
+
+group = 'io.waterwave'
+version = '1.0'
+archivesBaseName = 'Bridge'
+
+sourceCompatibility = targetCompatibility = 1.8
+compileJava.options.encoding = 'UTF-8'
+
+repositories {
+	mavenCentral()
+}
+
+configurations {
+	embed
+	compile.extendsFrom(embed)
+}
+
+dependencies {
+	embed 'org.projectlombok:lombok:1.18.24'
+	annotationProcessor 'org.projectlombok:lombok:1.18.24'
+}
