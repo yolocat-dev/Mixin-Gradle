@@ -72,7 +72,8 @@ dependencies {
 	}
 	annotationProcessor 'org.spongepowered:mixin:0.7.11-SNAPSHOT'
 
-	embed project(':Client')
+	implementation project(':Bridge')
+	implementation project(':Client')
 
 	implementation fileTree(includes: ["*.jar"], dir: 'libs')
 }
