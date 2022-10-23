@@ -1,0 +1,10 @@
+{
+	"required": true,
+	"compatibilityLevel": "JAVA_8",
+	"verbose": true,
+	"package": "io.waterwave.v1_8_9.mixins",
+	"refmap": "mixins.1.8.9.refmap.json",
+	"mixins": [
+		"client.MixinMinecraft"
+	]
+}
