@@ -1,0 +1,6 @@
+rootProject.name = 'WaterwaveClient'
+include (
+	':Bridge',
+	':Client',
+	':1.8.9'
+)
